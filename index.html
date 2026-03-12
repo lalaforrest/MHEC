@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MHEC — Mental Health & Entrepreneurship Clinic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F9F6F1;
+    --warm-white: #FDFBF8;
+    --ink: #1C1C1A;
+    --ink-soft: #3D3D39;
+    --ink-muted: #7A7A74;
+    --sage: #7B9E87;
+    --sage-light: #C4D9CB;
+    --sage-pale: #EDF4EF;
+    --terracotta: #C4724A;
+    --terracotta-pale: #F5EAE3;
+    --gold: #B89A5E;
+    --rule: #E0DDD6;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes lineGrow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 5vw;
+    background: rgba(249, 246, 241, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  nav.scrolled { border-bottom-color: var(--rule); }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--sage); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.4rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6vw 4vw 6vw 8vw;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    font-weight: 300;
+    line-height: 1.12;
+    color: var(--ink);
+    animation: fadeUp 0.8s ease 0.35s both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .hero-rule {
+    width: 48px;
+    height: 2px;
+    background: var(--terracotta);
+    margin: 2rem 0;
+    transform-origin: left;
+    animation: lineGrow 0.8s ease 0.6s both;
+  }
+
+  .hero-body {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--ink-soft);
+    max-width: 420px;
+    line-height: 1.75;
+    animation: fadeUp 0.8s ease 0.7s both;
+  }
+
+  .hero-cta {
+    margin-top: 2.8rem;
+    animation: fadeUp 0.8s ease 0.85s both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.9rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .btn-primary:hover {
+    background: var(--sage);
+    transform: translateY(-2px);
+  }
+  .btn-primary svg { width: 14px; height: 14px; }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    padding: 0.9rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-left: 1rem;
+    transition: background 0.25s, color 0.25s, transform 0.2s;
+  }
+  .btn-ghost:hover {
+    background: var(--ink);
+    color: var(--cream);
+    transform: translateY(-2px);
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4vw;
+  }
+
+  .hero-right-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.4rem;
+    padding: 4vw 6vw 4vw 2vw;
+    animation: fadeIn 1.2s ease 0.5s both;
+    border-left: 1px solid var(--rule);
+    height: 100%;
+  }
+
+  .hero-right-stat-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hero-stat {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    max-width: 320px;
+    font-weight: 300;
+  }
+
+  .hero-right-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--sage-light);
+  }
+
+  .hero-right-quote-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .hero-right-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 360px;
+  }
+
+  .hero-right-quote-attr {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+
+  .hero-right-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--rule);
+    color: var(--ink-muted);
+    padding: 0.3rem 0.8rem;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 7rem 8vw; }
+
+  .section-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 1.2rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--ink);
+    max-width: 600px;
+  }
+  .section-title em { font-style: italic; color: var(--sage); }
+
+  .section-rule {
+    width: 40px;
+    height: 2px;
+    background: var(--rule);
+    margin: 1.8rem 0;
+  }
+
+  /* ── PROBLEM ── */
+  .problem {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 7rem 8vw;
+  }
+  .problem .section-eyebrow { color: var(--sage-light); }
+  .problem .section-title { color: var(--cream); max-width: 700px; }
+  .problem .section-rule { background: var(--sage); }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 4rem;
+  }
+
+  .problem-card {
+    background: rgba(255,255,255,0.04);
+    padding: 2.4rem;
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .problem-card:hover {
+    background: rgba(255,255,255,0.07);
+    border-top-color: var(--sage);
+  }
+
+  .problem-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--sage-light);
+    opacity: 0.4;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .problem-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+  }
+
+  .problem-card p {
+    font-size: 0.88rem;
+    color: rgba(249,246,241,0.6);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── MISSION ── */
+  .mission {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6vw;
+    align-items: center;
+    padding: 7rem 8vw;
+    background: var(--warm-white);
+  }
+
+  .mission-body {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    margin-top: 1.5rem;
+  }
+
+  .mission-visual {
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid var(--sage-light);
+    padding-left: 2.2rem;
+  }
+
+  .mission-principle {
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .mission-principle:first-child { padding-top: 0; }
+  .mission-principle:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .mission-principle-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.5rem;
+  }
+
+  .mission-principle h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 0.45rem;
+  }
+
+  .mission-principle p {
+    font-size: 0.84rem;
+    color: var(--ink-muted);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* ── SERVICES ── */
+  .services { padding: 7rem 8vw; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin-top: 3.5rem;
+    border: 1px solid var(--rule);
+  }
+
+  .service-item {
+    padding: 2.4rem;
+    border: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .service-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--sage);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-item:hover { background: var(--sage-pale); }
+  .service-item:hover::before { transform: scaleX(1); }
+
+  .service-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sage);
+    border: 1px solid var(--sage-light);
+    padding: 0.25rem 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-item h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .service-item p {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* ── FOUNDER ── */
+  .founder {
+    background: linear-gradient(135deg, var(--sage-pale) 0%, var(--terracotta-pale) 100%);
+    padding: 7rem 8vw;
+  }
+
+  .founder-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5vw;
+    align-items: start;
+    max-width: 900px;
+  }
+
+  .founder-portrait {
+    width: 200px;
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, var(--sage-light), var(--sage));
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .founder-portrait-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .founder-initials {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: white;
+    opacity: 0.8;
+  }
+
+  .founder-portrait-border {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: -12px;
+    bottom: -12px;
+    border: 1px solid var(--sage);
+    z-index: -1;
+  }
+
+  .founder-content { padding-top: 0.5rem; }
+
+  .founder-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .founder-title {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1.5rem;
+  }
+
+  .founder-bio {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--ink-soft);
+    line-height: 1.85;
+    max-width: 560px;
+  }
+
+  .founder-bio + .founder-bio { margin-top: 1rem; }
+
+  /* ── CONTACT ── */
+  .contact {
+    padding: 7rem 8vw;
+    background: var(--warm-white);
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6vw;
+    align-items: start;
+  }
+
+  .contact-body {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    margin-top: 1.2rem;
+    max-width: 400px;
+  }
+
+  .contact-details {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .contact-item-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--sage-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-item-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--sage);
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .contact-item-text {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+
+  .contact-item-text a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: border-color 0.2s;
+  }
+  .contact-item-text a:hover { border-color: var(--sage); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .form-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .form-input, .form-select, .form-textarea {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    padding: 0.8rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--sage);
+  }
+  .form-textarea { resize: vertical; min-height: 100px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.9rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.2s;
+    align-self: flex-start;
+    margin-top: 0.4rem;
+  }
+  .form-submit:hover {
+    background: var(--sage);
+    transform: translateY(-2px);
+  }
+
+  /* ── CITATIONS ── */
+  .hero-stat-citation {
+    font-size: 0.68rem;
+    color: var(--ink-muted);
+    margin-top: 0.4rem;
+    font-style: italic;
+  }
+
+  .cite-marker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: var(--sage-pale);
+    border: 1px solid var(--sage-light);
+    border-radius: 50%;
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--sage);
+    margin-left: 3px;
+    vertical-align: super;
+    cursor: help;
+    position: relative;
+    top: -2px;
+  }
+
+  .references {
+    padding: 3rem 8vw;
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+  }
+
+  .references-title {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .references ol {
+    list-style: decimal;
+    padding-left: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .references li {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  .references li em { font-style: italic; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 3rem 8vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--cream);
+    letter-spacing: 0.08em;
+  }
+  .footer-logo span { color: var(--sage-light); }
+
+  .footer-note {
+    font-size: 0.72rem;
+    color: rgba(249,246,241,0.35);
+    font-weight: 300;
+    max-width: 380px;
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 100px; }
+    .hero-left { padding: 4rem 6vw; }
+    .hero-right { display: none; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .mission { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .founder-inner { grid-template-columns: 1fr; }
+    .founder-portrait { width: 140px; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .footer-note { text-align: center; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">M<span>H</span>EC</a>
+  <ul class="nav-links">
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#founder">Founder</a></li>
+    <li><a href="#contact">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Mental Health &amp; Entrepreneurship Clinic</p>
+    <h1 class="hero-title">
+      Where founders<br>
+      find <em>grounded</em><br>
+      support
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-body">
+      MHEC is a specialized psychiatric clinic serving founders, entrepreneurs, and innovation leaders — providing the mental health care that the startup ecosystem has long overlooked.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">
+        Get in touch
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#mission" class="btn-ghost">Our mission</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <div class="hero-right-stat-block">
+        <div class="hero-stat">72%</div>
+        <p class="hero-stat-label">of entrepreneurs are affected by mental health concerns — yet the care they need is rarely available</p>
+        <p class="hero-stat-citation">Freeman et al., <em>Small Business Economics</em>, 2018</p>
+      </div>
+      <div class="hero-right-divider"></div>
+      <div class="hero-right-quote-block">
+        <p class="hero-right-quote">"You never change things by fighting the existing reality. To change something, build a new model that makes the existing model obsolete."</p>
+        <p class="hero-right-quote-attr">— R. Buckminster Fuller</p>
+      </div>
+      <div class="hero-right-tags">
+        <span class="hero-tag">Psychiatric Care</span>
+        <span class="hero-tag">Coaching</span>
+        <span class="hero-tag">New Haven, CT</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="reveal">
+    <p class="section-eyebrow">The Problem</p>
+    <h2 class="section-title">Founders face a mental health crisis hiding in plain sight</h2>
+    <div class="section-rule" style="background: var(--sage);"></div>
+  </div>
+  <div class="problem-grid">
+    <div class="problem-card reveal">
+      <div class="problem-number">01</div>
+      <h3>Invisible Suffering</h3>
+      <p>Founders are disproportionately affected by anxiety, depression, and burnout — yet the culture of entrepreneurship treats these as weaknesses to be hidden rather than conditions to be treated. Entrepreneurs report depression at nearly three times the rate of the general population.<span class="cite-marker" title="Freeman MA et al. The prevalence and co-occurrence of psychiatric conditions among entrepreneurs and their families. Small Business Economics. 2018;50(2):323-335.">¹</span></p>
+    </div>
+    <div class="problem-card reveal">
+      <div class="problem-number">02</div>
+      <h3>No Specialized Care</h3>
+      <p>General outpatient psychiatry is not designed for the unique pressures of building a company — the fundraising cycles, the isolation of leadership, the existential stakes, and the identity fusion between founder and venture. Research shows that entrepreneurs present with distinct psychiatric profiles requiring specialized clinical approaches.<span class="cite-marker" title="Stephan U. Entrepreneurs' mental health and well-being: A review and research agenda. Academy of Management Perspectives. 2018;32(3):290-322.">²</span></p>
+    </div>
+    <div class="problem-card reveal">
+      <div class="problem-number">03</div>
+      <h3>Access Gaps</h3>
+      <p>Early-stage founders often lack employer-sponsored insurance, financial stability, or time. The mental health system was not built for them — and most clinicians have no framework for their lived experience. Only 30% of entrepreneurs report feeling comfortable discussing mental health challenges with peers, and fewer still seek formal care.<span class="cite-marker" title="Freeman MA et al. The prevalence and co-occurrence of psychiatric conditions among entrepreneurs and their families. Small Business Economics. 2018;50(2):323-335.">¹</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission" id="mission">
+  <div>
+    <p class="section-eyebrow reveal">Our Mission</p>
+    <h2 class="section-title reveal">Psychiatric care that understands the <em>founder experience</em></h2>
+    <div class="section-rule reveal"></div>
+    <p class="mission-body reveal">
+      MHEC exists to close the gap between the mental health needs of entrepreneurs and the care available to them. We offer evidence-based psychiatric services delivered by clinicians who understand the startup ecosystem — its rhythms, its pressures, and its particular demands on the human mind.
+    </p>
+    <p class="mission-body reveal" style="margin-top: 1rem;">
+      We believe that founders who are mentally well build better companies, lead more humanely, and create more durable value. Mental health is not a distraction from the work — it is foundational to it.
+    </p>
+  </div>
+  <div class="mission-visual reveal">
+    <div class="mission-principle">
+      <p class="mission-principle-label">Principle 01</p>
+      <h4>Grounded in evidence</h4>
+      <p>Every aspect of care is rooted in psychiatric best practice, delivered under rigorous clinical supervision — because founders deserve the same standard of care as anyone else.</p>
+    </div>
+    <div class="mission-principle">
+      <p class="mission-principle-label">Principle 02</p>
+      <h4>Built on relationship</h4>
+      <p>Continuity matters. You will see the same clinician over time — someone who knows your history, understands your context, and is genuinely invested in your wellbeing.</p>
+    </div>
+    <div class="mission-principle">
+      <p class="mission-principle-label">Principle 03</p>
+      <h4>Fluent in your world</h4>
+      <p>Our clinicians understand the entrepreneurship ecosystem — the fundraising cycles, the isolation of leadership, the weight of building something from nothing.</p>
+    </div>
+    <div class="mission-principle">
+      <p class="mission-principle-label">Principle 04</p>
+      <h4>Accessible by design</h4>
+      <p>Sliding scale and sliding-fee options ensure that financial constraints do not stand between a founder and the care they need.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <p class="section-eyebrow reveal">What We Offer</p>
+  <h2 class="section-title reveal">Clinical and supportive services for <em>the founder behind the venture</em></h2>
+  <div class="section-rule reveal"></div>
+  <div class="services-grid">
+    <div class="service-item reveal">
+      <span class="service-tag">Clinical</span>
+      <h3>Psychiatric Evaluation &amp; Diagnosis</h3>
+      <p>Comprehensive psychiatric assessment tailored to founders and entrepreneurs, with an understanding of how the startup environment intersects with mental health presentation and history.</p>
+    </div>
+    <div class="service-item reveal">
+      <span class="service-tag">Clinical</span>
+      <h3>Medication Management</h3>
+      <p>Ongoing psychiatric medication management as part of a longitudinal care relationship — not a one-time prescription. We monitor, adjust, and support over time.</p>
+    </div>
+    <div class="service-item reveal">
+      <span class="service-tag">Wellness</span>
+      <h3>Founder Wellness Programming</h3>
+      <p>Group workshops, peer support, and community programming designed specifically for the entrepreneurship ecosystem — addressing burnout, resilience, and leadership wellbeing. Programming extends into executive coaching, organizational leadership development, and the interpersonal and relational dynamics that shape how founders lead teams, navigate co-founder relationships, and build organizational culture.</p>
+    </div>
+    <div class="service-item reveal">
+      <span class="service-tag">Crisis</span>
+      <h3>Crisis Triage &amp; Escalation</h3>
+      <p>Structured crisis protocols and clear escalation pathways — so that founders know they have a clinical home with a clear plan when things get hard, not just a voicemail box.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder" id="founder">
+  <div class="founder-inner">
+    <div class="reveal" style="position: relative; margin-right: 1rem;">
+      <div class="founder-portrait" style="background: none;">
+        <img src="data:image/jpeg;base64,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" alt="Lala Forrest, MD" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
+      <div class="founder-portrait-border"></div>
+    </div>
+    <div class="founder-content reveal">
+      <p class="section-eyebrow">About the Founder</p>
+      <h2 class="founder-name">Lala Forrest, MD</h2>
+      <p class="founder-title">Founder &amp; Physician &nbsp;·&nbsp; Psychiatry Resident</p>
+      <p class="founder-bio">
+        Dr. Lala Forrest is a psychiatry resident and the founder of MHEC. She is developing this clinic at the intersection of academic medicine and the entrepreneurship ecosystem, with a deep commitment to making specialized psychiatric care accessible to founders and innovation leaders who have historically been underserved by the mental health system.
+      </p>
+      <p class="founder-bio">
+        Her vision for MHEC grows from a conviction that the pressures unique to entrepreneurship — the isolation of leadership, the existential stakes, the relentless performance demands — require clinicians who genuinely understand that world, not just clinicians who see it from the outside. She is building MHEC to be that place.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <p class="section-eyebrow reveal">Connect</p>
+      <h2 class="section-title reveal">We'd love to <em>hear from you</em></h2>
+      <div class="section-rule reveal"></div>
+      <p class="contact-body reveal">
+        Whether you are a founder seeking care, a clinician or researcher interested in collaboration, a partner organization, or a funder aligned with our mission — we welcome the conversation.
+      </p>
+      <div class="contact-details reveal">
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <a href="/cdn-cgi/l/email-protection#a5c9c4c9c48bc3cad7d7c0d6d1e5dcc4c9c08bc0c1d0"><span class="__cf_email__" data-cfemail="3b575a575a155d5449495e484f7b425a575e155e5f4e">[email&#160;protected]</span></a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-item-text">New Haven, Connecticut</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" placeholder="Jane">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="jane@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">I am reaching out as a...</label>
+          <select class="form-select">
+            <option value="">Select one</option>
+            <option>Founder or entrepreneur seeking care</option>
+            <option>Clinician or researcher</option>
+            <option>Potential partner organization</option>
+            <option>Funder or philanthropist</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell us a little about why you're reaching out..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">
+          Send message
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section class="references">
+  <p class="references-title">References</p>
+  <ol>
+    <li>Freeman MA, Staudenmaier PJ, Zisser MR, Andresen LA. The prevalence and co-occurrence of psychiatric conditions among entrepreneurs and their families. <em>Small Business Economics.</em> 2018;50(2):323–335. doi:10.1007/s11187-018-0059-8</li>
+    <li>Stephan U. Entrepreneurs' mental health and well-being: A review and research agenda. <em>Academy of Management Perspectives.</em> 2018;32(3):290–322. doi:10.5465/amp.2017.0001</li>
+  </ol>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">M<span>H</span>EC</div>
+  <p class="footer-note">Mental Health &amp; Entrepreneurship Clinic is a proposed clinical initiative currently in development. It is not yet a formally incorporated entity. All inquiries are welcomed and will be responded to personally.</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Form
+ 
